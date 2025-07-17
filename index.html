@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin – Erkenne den Song oder stirb</title>
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px;
+    }
+    .player {
+      background: #222;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 8px;
+    }
+    .buzzed {
+      color: #e74c3c;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Adminbereich</h1>
+  <input id="playerName" placeholder="Spielername eingeben" />
+  <button id="addPlayer">Spieler hinzufügen</button>
+  <button id="resetBuzzers">Buzz zurücksetzen</button>
+  <div id="playersList"></div>
+
+  <script type="module" src="./admin.js"></script>
+</body>
+</html>
