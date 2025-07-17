@@ -11,7 +11,7 @@ const resetBtn = document.getElementById('resetBuzzers');
 const list = document.getElementById('playersList');
 
 async function loadPlayers() {
-  const { data } = await supabase.from('players').select('*').order('created_at');
+  const { data } = await supabase.from('players').select('*').order('buzzed_at');
   list.innerHTML = '';
   data.forEach(p => {
     const el = document.createElement('div');
