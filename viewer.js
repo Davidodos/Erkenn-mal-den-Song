@@ -7,29 +7,16 @@ const supabase = createClient(
 
 const display = document.getElementById('playersDisplay');
 
-async function loadBuzzers() {
-  const { data, error } = await supabase
-    .from('players')
-    .select('*')
-    .order('buzzed_at', { ascending: true });
-
-  if (error) {
-    console.error('Fehler beim Laden der Buzzer:', error);
-    return;
-  }
-
-  const list = document.getElementById('buzzedList');
-  list.innerHTML = '';
-
-  data
-    .filter(p => p.buzzed)
-    .forEach((player, index) => {
-      const li = document.createElement('li');
-      li.textContent = `${index + 1}. ${player.name}`;
-      list.appendChild(li);
-    });
+async function loadPlayers() {
+  const { data } = await supabase.from('players').select('*').order('created_at');
+  display.innerHTML = '';
+  data.forEach(p => {
+    const el = document.createElement('div');
+    el.className = 'player';
+    el.innerHTML = `${p.name}: ${p.buzzed ? '<span class="buzzed">💥</span>' : '—'}`;
+    display.appendChild(el);
+  });
 }
-
 
 loadPlayers();
 
