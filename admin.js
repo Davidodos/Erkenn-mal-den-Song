@@ -18,7 +18,7 @@ async function loadPlayers() {
     el.className = 'player';
     el.innerHTML = `
       <strong>${p.name}</strong><br>
-      Link: <a href="./buzzer.html?player_id=${p.id}" target="_blank">buzzer.html?player_id=${p.id}</a><br>
+      Link: <a href="./buzzer.html?id=${p.id}" target="_blank">buzzer.html?id=${p.id}</a><br>
       Gebuzzert: ${p.buzzed ? '<span class="buzzed">JA</span>' : 'Nein'}
       <button data-id="${p.id}">Entfernen</button>
     `;
