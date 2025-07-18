@@ -1,22 +1,23 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
-const supabase = createClient(
-  'https://ffsvsnmlqyfoctjtmrnw.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZmc3Zzbm1scXlmb2N0anRtcm53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI3NzY1MzIsImV4cCI6MjA2ODM1MjUzMn0.vS3LCbtZzqFKPionHweCLKod6YBvgL1VQopOjhQhAFo'
-);
+document.addEventListener('DOMContentLoaded', () => {
+  const supabase = createClient(
+    'https://ffsvsnmlqyfoctjtmrnw.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZmc3Zzbm1scXlmb2N0anRtcm53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI3NzY1MzIsImV4cCI6MjA2ODM1MjUzMn0.vS3LCbtZzqFKPionHweCLKod6YBvgL1VQopOjhQhAFo'
+  );
 
-// UUID aus URL holen
-const urlParams = new URLSearchParams(window.location.search);
-const playerId = urlParams.get('id');
+  const urlParams = new URLSearchParams(window.location.search);
+  const playerId = urlParams.get('id');
 
-const buzzerBtn = document.getElementById('buzzer');
+  const buzzerBtn = document.getElementById('buzzer');
 
-if (!playerId) {
-  alert('Kein Spieler-Link erkannt');
-  buzzerBtn.disabled = true;
-} else {
+  if (!playerId) {
+    alert('Kein Spieler-Link erkannt');
+    if (buzzerBtn) buzzerBtn.disabled = true;
+    return;
+  }
+
   buzzerBtn.addEventListener('click', async () => {
-    // Buzzer senden
     const { error } = await supabase
       .from('players')
       .update({ buzzed: true, buzzed_at: new Date().toISOString() })
@@ -31,7 +32,6 @@ if (!playerId) {
     }
   });
 
-  // Polling: alle 1 Sekunde schauen ob reset wurde
   async function checkStatus() {
     const { data, error } = await supabase
       .from('players')
@@ -49,4 +49,4 @@ if (!playerId) {
 
   setInterval(checkStatus, 1000);
   checkStatus();
-}
+});
