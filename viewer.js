@@ -7,8 +7,9 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 async function loadBuzzers() {
   const { data, error } = await supabase
-    .from('players')
+    .from('buzzers')
     .select('*')
+    .eq('buzzed', true)
     .order('buzzed_at', { ascending: true });
 
   if (error) {
@@ -19,14 +20,13 @@ async function loadBuzzers() {
   const list = document.getElementById('buzzedList');
   list.innerHTML = '';
 
-  data
-    .filter(p => p.buzzed)
-    .forEach((player, index) => {
-      const li = document.createElement('li');
-      li.textContent = `${index + 1}. ${player.name}`;
-      list.appendChild(li);
-    });
+  data.forEach((player, index) => {
+    const li = document.createElement('li');
+    li.textContent = `${index + 1}. ${player.name}`;
+    list.appendChild(li);
+  });
 }
 
-setInterval(loadBuzzers, 1000); // Automatische Aktualisierung alle Sekunde
-loadBuzzers(); // Initialer Aufruf
+// Alle 1 Sekunde aktualisieren
+setInterval(loadBuzzers, 1000);
+loadBuzzers(); // Sofortiger erster Aufruf
