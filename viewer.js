@@ -7,7 +7,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 async function loadBuzzers() {
   const { data, error } = await supabase
-    .from('id')
+    .from('players')
     .select('*')
     .eq('buzzed', true)
     .order('buzzed_at', { ascending: true });
