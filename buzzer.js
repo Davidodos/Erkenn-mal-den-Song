@@ -1,31 +1,38 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
-// Supabase-Zugangsdaten
 const supabaseUrl = 'https://ffsvsnmlqyfoctjtmrnw.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZmc3Zzbm1scXlmb2N0anRtcm53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI3NzY1MzIsImV4cCI6MjA2ODM1MjUzMn0.vS3LCbtZzqFKPionHweCLKod6YBvgL1VQopOjhQhAFo';
-
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'; // <- hier ist dein echter Key einzutragen
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-// Spieler-ID aus URL holen (z. B. ?id=xyz)
+// UUID aus der URL lesen
 const urlParams = new URLSearchParams(window.location.search);
-const playerId = urlParams.get('id');
+const uuid = urlParams.get('id');
 
 const buzzerBtn = document.getElementById('buzzer');
+const statusDiv = document.getElementById('status');
 
-buzzerBtn.addEventListener('click', async () => {
+if (!uuid) {
   buzzerBtn.disabled = true;
+  statusDiv.textContent = 'Fehler: Kein Spieler-Link erkannt.';
+} else {
+  buzzerBtn.addEventListener('click', async () => {
+    buzzerBtn.disabled = true;
+    statusDiv.textContent = 'Buzz gesendet...';
 
-  const { error } = await supabase
-    .from('buzzers')
-    .update({
-      buzzed: true,
-      buzzed_at: new Date().toISOString()
-    })
-    .eq('id', uuid); // oder 'uuid' wenn du UUIDs nutzt
+    const { data, error } = await supabase
+      .from('players')
+      .update({
+        buzzed: true,
+        buzzed_at: new Date().toISOString(),
+      })
+      .eq('id', uuid);
 
-  if (error) {
-    console.error('Fehler beim Buzz:', error.message);
-  } else {
-    buzzerBtn.textContent = 'Gebuzzert!';
-  }
-});
+    if (error) {
+      console.error(error);
+      statusDiv.textContent = 'Fehler beim Buzzern!';
+      buzzerBtn.disabled = false;
+    } else {
+      statusDiv.textContent = 'Gebuzzert!';
+    }
+  });
+}
