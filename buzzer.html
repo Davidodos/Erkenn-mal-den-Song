@@ -2,31 +2,48 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Buzzer</title>
+  <title>Buzz!</title>
   <style>
     body {
-      background: #000;
+      background-color: #111;
       color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       font-family: sans-serif;
-      flex-direction: column;
+      text-align: center;
+      padding: 40px;
     }
-    button {
-      font-size: 40px;
-      padding: 30px 60px;
-      background: #e74c3c;
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    #buzzer {
+      font-size: 2em;
+      padding: 20px 40px;
+      background-color: #e74c3c;
+      color: white;
       border: none;
       border-radius: 12px;
       cursor: pointer;
     }
+
+    #buzzer:disabled {
+      background-color: #555;
+      cursor: not-allowed;
+    }
+
+    #status {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #4caf50;
+    }
   </style>
 </head>
 <body>
-  <h1>Buzzer</h1>
-  <button id="buzzerBtn">BUZZ!</button>
+  <h1>Buzz!</h1>
+  <button id="buzzer">Buzz!</button>
+  <div id="status"></div>
+
   <script type="module" src="./buzzer.js"></script>
 </body>
 </html>
