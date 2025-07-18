@@ -28,5 +28,5 @@ async function loadBuzzers() {
 }
 
 // Alle 1 Sekunde aktualisieren
-setInterval(loadBuzzers, 1000);
+setInterval(loadBuzzers, 100);
 loadBuzzers(); // Sofortiger erster Aufruf
