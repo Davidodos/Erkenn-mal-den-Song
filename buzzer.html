@@ -2,47 +2,42 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Buzz!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buzzer</title>
   <style>
     body {
-      background-color: #111;
+      background-color: #000;
       color: white;
       font-family: sans-serif;
       text-align: center;
-      padding: 40px;
+      padding-top: 50px;
     }
 
-    h1 {
-      font-size: 2em;
-      margin-bottom: 20px;
-    }
-
-    #buzzer {
+    button {
       font-size: 2em;
       padding: 20px 40px;
-      background-color: #e74c3c;
+      background-color: red;
       color: white;
       border: none;
-      border-radius: 12px;
+      border-radius: 10px;
       cursor: pointer;
     }
 
-    #buzzer:disabled {
+    button:disabled {
       background-color: #555;
       cursor: not-allowed;
     }
 
-    #status {
+    .status {
       margin-top: 20px;
       font-size: 1.2em;
-      color: #4caf50;
     }
   </style>
 </head>
 <body>
-  <h1>Buzz!</h1>
-  <button id="buzzer">Buzz!</button>
-  <div id="status"></div>
+  <h1>🔴 Buzz!</h1>
+  <button id="buzzBtn">BUZZ!</button>
+  <div class="status" id="status"></div>
 
   <script type="module" src="./buzzer.js"></script>
 </body>
