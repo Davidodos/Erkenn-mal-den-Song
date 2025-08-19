@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   buzzerBtn.addEventListener('click', async () => {
     const { error } = await supabase
       .from('players')
-      .update({ buzzed: true, buzzed_at: new Date().toISOString() })
+      .update({ buzzed: true })
       .eq('id', playerId);
 
     if (error) {
@@ -50,3 +50,4 @@ document.addEventListener('DOMContentLoaded', () => {
   setInterval(checkStatus, 1000);
   checkStatus();
 });
+
